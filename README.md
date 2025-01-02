@@ -6,7 +6,7 @@ A full featured Ecommerce website built with Next.js, TypeScript, PostgreSQL and
 
 ## Features
 
-- 1
+- Next.js 
 - 2
 - 3
 
