@@ -3,13 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import ProductPrice from "./product-price";
 import { Product } from "@/types";
+// import { Product } from "@prisma/client";
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader className="p-0 items-center">
         <Link href={`/product/${product.slug}`}>
-          <Image src={product.images[0]}
+          <Image
+            src={product.images[0]}
             height={300}
             width={300}
             alt={product.name}
@@ -17,7 +19,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           />
         </Link>
       </CardHeader>
-      <CardContent className="p-4 grid gap-4" >
+      <CardContent className="p-4 grid gap-4">
         <Link href={`product/${product.slug}`}>
           <h2 className="text-sm font-medium">{product.name}</h2>
         </Link>
@@ -30,8 +32,8 @@ const ProductCard = ({ product }: { product: Product }) => {
           )}
         </div>
       </CardContent>
-    </Card >
-  )
-}
+    </Card>
+  );
+};
 
 export default ProductCard;

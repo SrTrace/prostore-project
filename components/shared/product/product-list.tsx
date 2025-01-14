@@ -1,7 +1,17 @@
-import { Product } from "@prisma/client";
+// import { Product } from "@prisma/client";
+// import ProductCard from "./product-card";
 import ProductCard from "./product-card";
+import { Product } from "@/types";
 
-const ProductList = ({ data, title, limit }: { data: Product[]; title?: string; limit?: number }) => {
+const ProductList = ({
+  data,
+  title,
+  limit,
+}: {
+  data: Product[];
+  title?: string;
+  limit?: number;
+}) => {
   const limitedData = limit ? data.slice(0, limit) : data;
 
   return (
@@ -17,7 +27,7 @@ const ProductList = ({ data, title, limit }: { data: Product[]; title?: string; 
         <div>No products found</div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default ProductList;
