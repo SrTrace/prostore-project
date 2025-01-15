@@ -9,7 +9,8 @@ A full featured Ecommerce website built with Next.js, TypeScript, PostgreSQL and
 - Next.js 
 - Shadcd components 
 - PostgreSQL, Prisma
-- Zod validation 
+- Zod validation
+- NextAuth.js
 
 ## Usage
 
