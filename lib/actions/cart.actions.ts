@@ -142,3 +142,67 @@ export async function getMyCart() {
     taxPrice: cart.taxPrice.toString(),
   });
 }
+
+export async function removeItemFromCart(productId: string) {
+  try {
+    // Check for cart cookie
+    const sessionCartId = (await cookies()).get("sessionCartId")?.value;
+
+    // Get Product
+    const product = await prisma.product.findFirst({
+      where: { id: productId },
+    });
+
+    if (!product) throw new Error('Product not found');
+
+    // Get user cart
+    const cart = await getMyCart();
+
+    if (!cart) throw new Error('Cart not found');
+
+    // Chec for item
+    const existItem = (cart.items as CartItem[]).find(el => el.productId === productId);
+
+    if (!existItem) throw new Error('Item not found');
+
+    if (existItem.qty === 1) {
+      cart.items = (cart.items as CartItem[]).filter(el => el.productId === existItem.productId);
+    } else {
+      (cart.items as CartItem[]).find(el => el.productId === productId)!.qty = existItem.qty - 1;
+    }
+
+    //Update cart in database
+    await prisma.cart.update({
+      where: { id: cart.id },
+      data: {
+        items: cart.items as Prisma.CartUpdateitemsInput[],
+        ...calcPrice(cart.items as CartItem[]),
+      },
+    });
+
+    revalidatePath(`/product/${product.slug}`);
+
+    return {
+      success: true,
+      message: `${product.name} was removed from cart`,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: formatError(error),
+    };
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
