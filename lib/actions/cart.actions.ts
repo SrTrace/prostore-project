@@ -147,6 +147,7 @@ export async function removeItemFromCart(productId: string) {
   try {
     // Check for cart cookie
     const sessionCartId = (await cookies()).get("sessionCartId")?.value;
+    if (!sessionCartId) throw new Error('Cart session not found');
 
     // Get Product
     const product = await prisma.product.findFirst({
