@@ -1,3 +1,5 @@
+import { profile } from "console";
+
 export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'Prostore';
 export const APP_DISCRIPTION = process.env.NEXT_PUBLIC_APP_DISCRIPTION || "A ecommerce platform built with Next.js";
 export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
@@ -20,3 +22,6 @@ export const shippingAddressDefaultValues = {
   postalCode: '',
   country: "",
 };
+
+export const PAYMENT_METHODS = process.env.PAYMENT_METHODS ? process.env.PAYMENT_METHODS.split(', ') : ['PayPal, Stripe, CashOnDelivery'];
+export const DEFAULT_PAYMENT_METHOD = process.env.DEFAULT_PAYMENT_METHOD || "PayPal";
