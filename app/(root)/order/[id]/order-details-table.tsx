@@ -10,7 +10,6 @@ import Link from "next/link";
 
 const OrderDetailsTable = ({ order }: { order: Order }) => {
   const {
-    id,
     shippingAddress,
     orderitems,
     itemsPrice,
