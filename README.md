@@ -11,6 +11,7 @@ A full featured Ecommerce website built with Next.js, TypeScript, PostgreSQL and
 - PostgreSQL, Prisma
 - Zod validation
 - NextAuth.js
+- Mock paypal payment
 
 ## Usage
 
