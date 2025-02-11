@@ -228,7 +228,7 @@ async function updateOrderToPaid({
     },
   });
 
-  if (!order) throw new Erro('Order not found');
+  if (!order) throw new Error('Order not found');
 
   if (order.isPaid) throw new Error('Order already paid');
 
