@@ -290,28 +290,32 @@ async function updateOrderToPaid({
 // Get user's orders
 export async function getMyOrders({
   limit = PAGE_SIZE,
-  page
+  page,
 }: {
   limit?: number;
   page: number;
 }) {
   const session = await auth();
 
-  if (!session) throw new Error('User is not authorized');
+  if (!session || !session.user?.id) {
+    throw new Error("User is not authorized");
+  }
+
+  const userId = session.user.id;
 
   const data = await prisma.order.findMany({
-    where: { userId: session?.user?.id! },
-    orderBy: { createdAt: 'desc' },
+    where: { userId },
+    orderBy: { createdAt: "desc" },
     take: limit,
     skip: (page - 1) * limit,
   });
 
   const dataCount = await prisma.order.count({
-    where: { userId: session?.user?.id! },
+    where: { userId },
   });
 
   return {
     data,
     totalPages: Math.ceil(dataCount / limit),
   };
-};
+}
