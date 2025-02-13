@@ -10,6 +10,7 @@ import { prisma } from "@/db/prisma";
 import { CartItem, PaymentResult } from "@/types";
 import { paypal } from "../paypal";
 import { revalidatePath } from "next/cache";
+import { PAGE_SIZE } from "../constants";
 
 // Create order and create the order items
 export async function createOrder() {
@@ -286,4 +287,31 @@ async function updateOrderToPaid({
   if (!updatedOrder) throw new Error("Order not found");
 }
 
-//{"name":"RESOURCE_NOT_FOUND","details":[{"field":"order_id","value":"undefined","location":"path","issue":"INVALID_RESOURCE_ID","description":"Specified resource ID does not exist. Please check the resource ID and try again."}],"message":"The specified resource does not exist.","debug_id":"f35641966bb74","links":[{"href":"https://developer.paypal.com/api/rest/reference/orders/v2/errors/#INVALID_RESOURCE_ID","rel":"information_link","method":"GET"}]}
+// Get user's orders
+export async function getMyOrders({
+  limit = PAGE_SIZE,
+  page
+}: {
+  limit?: number;
+  page: number;
+}) {
+  const session = await auth();
+
+  if (!session) throw new Error('User is not authorized');
+
+  const data = await prisma.order.findMany({
+    where: { userId: session?.user?.id! },
+    orderBy: { createdAt: 'desc' },
+    take: limit,
+    skip: (page - 1) * limit,
+  });
+
+  const dataCount = await prisma.order.count({
+    where: { userId: session?.user?.id! },
+  });
+
+  return {
+    data,
+    totalPages: Math.ceil(dataCount / limit),
+  };
+};
