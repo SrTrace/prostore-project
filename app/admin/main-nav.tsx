@@ -11,15 +11,15 @@ const links = [
   },
   {
     title: 'Products',
-    href: 'admin/products',
+    href: '/admin/products',
   },
   {
     title: 'Orders',
-    href: 'admin/orders',
+    href: '/admin/orders',
   },
   {
     title: 'Users',
-    href: 'admin/users',
+    href: '/admin/users',
   },
 
 ];
