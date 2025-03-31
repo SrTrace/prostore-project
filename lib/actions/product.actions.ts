@@ -7,6 +7,7 @@ import { LATEST_PRODUCTS_LIMIT } from "../constants";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { insertProductSchema, updateProductSchema } from "../validators";
+import { Prisma } from "@prisma/client";
 
 export async function getLatestProducts() {
   const data = await prisma.product.findMany({
