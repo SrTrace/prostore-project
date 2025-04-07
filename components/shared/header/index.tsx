@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Menu from "./menu";
 import CategoryDrawer from "./category-drawer";
+import Search from "./search";
 
 const Header = () => {
   return (
@@ -20,6 +21,9 @@ const Header = () => {
           <div className="hidden lg:block font-bold text-2xl ml-3">
             {APP_NAME}
           </div>
+        </div>
+        <div className="hidden lg:block font-bold text-2xl ml-3">
+          <Search />
         </div>
         <Menu />
       </div>
