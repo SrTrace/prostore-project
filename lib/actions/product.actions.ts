@@ -63,7 +63,10 @@ export async function getAllProducts({
       : {};
 
   // Category filter
-  const categoryFilter = category && category !== 'all' ? { category } : {};
+  const categoryFilter =
+    category && category !== 'all'
+      ? { category }
+      : {};
 
   // Price filter
   const priceFilter: Prisma.ProductWhereInput =
