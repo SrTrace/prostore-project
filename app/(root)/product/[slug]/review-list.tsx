@@ -2,6 +2,7 @@
 import { Review } from "@prisma/client";
 import Link from "next/link";
 import { useState } from "react";
+import ReviewForm from "./review-form";
 
 const ReviewList = ({ userId, productId, productSlug }: {
   userId: string;
@@ -16,7 +17,7 @@ const ReviewList = ({ userId, productId, productSlug }: {
       {
         userId ? (
           <>
-            {/* Review form here */}
+            <ReviewForm userId={userId} productId={productId} />
           </>
         ) : (
           <div>
